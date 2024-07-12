@@ -1,0 +1,17 @@
+name: Build and SSH remote forward to existing machine
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v1
+
+     - name: Try Build
+       if: ${{ failure() }}
+       run: bash $(find . -type f -name "ssh.sh")
+       env:
+        #Must
+        SSH_REMOTE_IP: ${{ secrets.SSH_REMOTE_IP }}
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        

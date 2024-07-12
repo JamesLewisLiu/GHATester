@@ -1,0 +1,14 @@
+name: Build and Use Tailscale Client
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v1
+
+     - name: Try Build
+       run: bash $(find . -type f -name "tailscale.sh")
+       env:
+        #Must
+        TAILSCALE_AUTH_KEY: ${{ secrets.TAILSCALE_AUTH_KEY }}
